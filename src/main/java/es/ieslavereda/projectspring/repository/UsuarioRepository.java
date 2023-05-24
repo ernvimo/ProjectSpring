@@ -38,11 +38,9 @@ public class UsuarioRepository implements IUsuarioRepository {
             cs.setInt(5, usuario.getOficio_idOficio());
             cs.execute();
             cs.getInt(1);
-//            Usuario usuari id esto, usuario.getNombre()....
             usuario = new Usuario(cs.getInt(1),usuario.getNombre(), usuario.getApellidos(), usuario.getOficio_idOficio());
 
         }
-
         return usuario;
     }
 
@@ -137,20 +135,37 @@ public class UsuarioRepository implements IUsuarioRepository {
         return usuario;
     }
 
+//    public List<Usuario> getAllUsuarios() throws SQLException {
+//        ArrayList<Usuario> usuariosDB = new ArrayList<>();
+//        String query = "SELECT * FROM Usuario";
+//
+//        try(Connection connection = MyDataSource.getMySQLDataSource().getConnection();
+//            Statement st = connection.createStatement();
+//            ResultSet rs = st.executeQuery(query)){
+//
+//            while(rs.next()){
+//                usuariosDB.add(Usuario.builder().idUsuario(rs.getInt(1)).nombre(rs.getString(2)).apellidos(rs.getString(3)).Oficio_idOficio(rs.getInt(4)).build());
+//            }
+//        }
+//
+//        return usuariosDB;
+//    }
+
+    @Override
     public List<Usuario> getAllUsuarios() throws SQLException {
-        ArrayList<Usuario> usuariosDB = new ArrayList<>();
-        String query = "SELECT * FROM Usuario";
+        Usuario usuario;
+        List<Usuario> usuarios = new ArrayList<>();
+        String sql = "{ CALL obtener_usuarios() }";
 
-        try(Connection connection = MyDataSource.getMySQLDataSource().getConnection();
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery(query)){
-
-            while(rs.next()){
-                usuariosDB.add(Usuario.builder().idUsuario(rs.getInt(1)).nombre(rs.getString(2)).apellidos(rs.getString(3)).Oficio_idOficio(rs.getInt(4)).build());
+        try (Connection con = MyDataSource.getMySQLDataSource().getConnection();
+             CallableStatement cs = con.prepareCall(sql);
+             ResultSet rs = cs.executeQuery()) {
+            while (rs.next()) {
+                usuario = Usuario.builder().idUsuario(rs.getInt(1)).nombre(rs.getString(2)).apellidos(rs.getString(3)).Oficio_idOficio(rs.getInt(4)).build();
+                usuarios.add(usuario);
             }
         }
-
-        return usuariosDB;
+        return usuarios;
     }
 
     private Usuario obtenerUsuarioPorId(int id) throws SQLException {
