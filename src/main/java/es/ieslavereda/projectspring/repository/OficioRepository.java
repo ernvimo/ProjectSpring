@@ -14,7 +14,7 @@ public class OficioRepository implements IOficioRepository {
     @Override
     public List<Oficio> getAllOficios() throws SQLException {
         ArrayList<Oficio> oficios = new ArrayList<>();
-        String query = "{ call obtener_oficios(?) }";
+        String query = "{ call obtener_oficios(?)}";
 
         try(Connection connection = MyDataSource.getMySQLDataSource().getConnection();
             CallableStatement cs = connection.prepareCall(query);){
