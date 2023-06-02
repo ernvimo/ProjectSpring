@@ -17,12 +17,12 @@ public class OficioRepository implements IOficioRepository {
         String query = "{ call obtener_oficios(?)}";
 
         try(Connection connection = MyDataSource.getMySQLDataSource().getConnection();
-            CallableStatement cs = connection.prepareCall(query);){
+            CallableStatement cs = connection.prepareCall(query)){
             cs.setNull(1,0);
             ResultSet rs = cs.executeQuery();
 
             while(rs.next()){
-                oficios.add(Oficio.builder().idOficio(rs.getInt(1)).descripcion(rs.getString(2)).imageurl(rs.getString(4)).build());
+                oficios.add(Oficio.builder().idOficio(rs.getInt(1)).descripcion(rs.getString(2)).image(rs.getBlob(3)).imageurl(rs.getString(4)).build());
             }
         }
 

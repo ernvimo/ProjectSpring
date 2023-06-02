@@ -4,6 +4,7 @@ import es.ieslavereda.projectspring.repository.model.MyDataSource;
 import es.ieslavereda.projectspring.repository.model.Usuario;
 import org.springframework.stereotype.Repository;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
