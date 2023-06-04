@@ -2,7 +2,6 @@ package es.ieslavereda.projectspring.repository;
 
 import es.ieslavereda.projectspring.repository.model.MyDataSource;
 import es.ieslavereda.projectspring.repository.model.Oficio;
-import es.ieslavereda.projectspring.repository.model.Usuario;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -22,7 +21,7 @@ public class OficioRepository implements IOficioRepository {
             ResultSet rs = cs.executeQuery();
 
             while(rs.next()){
-                oficios.add(Oficio.builder().idOficio(rs.getInt(1)).descripcion(rs.getString(2)).image(rs.getBlob(3)).imageurl(rs.getString(4)).build());
+                oficios.add(Oficio.builder().idOficio(rs.getInt(1)).descripcion(rs.getString(2)).imgUrl(rs.getString(4)).build());
             }
         }
 

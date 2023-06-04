@@ -2,7 +2,7 @@ package es.ieslavereda.projectspring.repository.model;
 
 import lombok.*;
 
-import java.sql.Blob;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Getter
@@ -11,12 +11,11 @@ import java.util.Objects;
 @NoArgsConstructor
 @ToString
 @Builder
-public class Oficio {
+public class Oficio implements Serializable {
 
     private int idOficio;
     private String descripcion;
-    private Blob image;
-    private String imageurl;
+    private String imgUrl;
 
     @Override
     public boolean equals(Object o) {
